@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docling: Inteligência e Processamento de Documentos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00fff7;
+      --accent: #ff00cc;
+      --bg: #0b0c1e;
+      --surface: #12132a;
+      --text: #e1eaff;
+      --code-bg: #1e1f2f;
+      --border: rgba(0, 255, 247, 0.2);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(0, 255, 247, 0.1);
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+      margin-top: 2.5rem;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .intro-section {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .intro-section p {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.2rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 1rem auto;
+      color: var(--text);
+    }
+
+    p, li {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.1rem;
+    }
+
+    code {
+      background-color: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Roboto Mono', monospace;
+      color: #00ffea;
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      padding: 15px;
+      color: #00ffea;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      margin: 1em 0;
+      overflow-x: auto;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .highlight {
+      background: #191a3c;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      margin-top: 2em;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+      text-decoration: underline;
+    }
+
+    .cta-container {
+        text-align: center;
+        margin: 3rem 0;
+    }
+
+    .cta {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      color: #000;
+      border-radius: 50px;
+      font-weight: bold;
+      text-shadow: none;
+      box-shadow: 0 0 20px var(--primary), 0 0 30px var(--accent);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 25px var(--primary), 0 0 40px var(--accent);
+        text-decoration: none;
+    }
+
+    .section-divider {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--primary), rgba(0, 0, 0, 0));
+        margin: 4rem 0;
+    }
+
+    .flow-diagram {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 2rem;
+        background: var(--code-bg);
+        border-radius: 15px;
+        border: 1px solid var(--border);
+    }
+    
+    .flow-item {
+        text-align: center;
+        font-family: 'Roboto Mono', monospace;
+        flex-grow: 1;
+        padding: 1rem;
+    }
+
+    .flow-item-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .flow-arrow {
+        font-size: 2.5rem;
+        color: var(--accent);
+        text-shadow: 0 0 8px var(--accent);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 1rem;
+    }
+
+    .feature-card {
+        background: var(--code-bg);
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid var(--border);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .feature-card h3 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-card h3::before {
+        content: '\2728';
+        color: var(--primary);
+        margin-right: 10px;
+        font-size: 1.5rem;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="intro-section">
+        <h1>DOCLING</h1>
+        <p><strong>Docling</strong> é uma biblioteca Python moderna para extração de texto e metadados de arquivos em formatos como PDF, DOCX, imagens e planilhas. Combinando OCR, análise sintática e conversão em lote, é a ferramenta ideal para digitalização e automação documental corporativa.</p>
+        <p>Com suporte a múltiplos formatos e integração com NLP, sistemas de busca e IA, <code>docling</code> é o pilar para construir plataformas que gerenciam grandes volumes de documentos com segurança, inteligência e eficiência.</p>
+    </div>
+
+    <div class="cta-container">
+        <a class="cta" href="https://pypi.org/project/docling/" target="_blank">Ver no PyPI</a>
+        <a class="cta" href="https://github.com/onecio/docling" target="_blank">Ver no GitHub</a>
+    </div>
+
+    <hr class="section-divider">
+
+    <h2>Como Funciona: Do Arquivo à Inteligência</h2>
+    <div class="flow-diagram">
+        <div class="flow-item">
+            <div class="flow-item-icon">📄</div>
+            <div>Arquivos Diversos<br>(PDF, DOCX, Imagens)</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-item">
+            <div class="flow-item-icon">⚙️</div>
+            <div>Motor Docling<br>(OCR & Parser)</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-item">
+            <div class="flow-item-icon">📦</div>
+            <div>Dados Estruturados<br>(Texto e Metadados)</div>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-item">
+            <div class="flow-item-icon">💡</div>
+            <div>Aplicações Finais<br>(Busca, IA, Análise)</div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <h2>Funcionalidades de uma Plataforma Corporativa</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>Gestão Inteligente</h3>
+            <p>Conversão, classificação e arquivamento automático de documentos.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Busca Avançada</h3>
+            <p>Pesquisa textual, semântica e filtrada por categoria, data ou outros metadados.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Extração de Insights</h3>
+            <p>Identificação automática de palavras-chave, entidades, pessoas e datas.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Indexação Contínua</h3>
+            <p>Monitoramento e indexação automática de novas pastas e arquivos.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Segurança Corporativa</h3>
+            <p>Integração com LDAP e sistemas de autenticação para controle de acesso.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Business Intelligence</h3>
+            <p>Criação de dashboards e relatórios automatizados para visualização de dados.</p>
+        </div>
+    </div>
+
+    <div class="highlight">
+      <h3>Crie um "Google Interno" para sua Empresa</h3>
+      <p>Use o <strong>Docling</strong> para processar e converter todos os documentos da sua organização (contratos, relatórios, manuais) em texto pesquisável. Indexe esse conteúdo com ferramentas como <strong>Whoosh</strong> ou <strong>Elasticsearch</strong> para criar um sistema de busca interno poderoso, onde qualquer informação se torna localizável em segundos.</p>
+      <pre># 1. Extrair texto com Docling
+from docling import extract
+texto_extraido = extract('relatorio_anual.pdf')['text']
+
+# 2. Indexar o texto para busca
+# (Exemplo com um motor de busca hipotético)
+search_engine.index(document_id='relatorio_01', content=texto_extraido)</pre>
+    </div>
+
+    <div class="highlight">
+      <h3>Instalação e Exemplo de Uso</h3>
+      <p>Instale o <code>docling</code> via PyPI e comece a extrair dados imediatamente.</p>
+      <pre>pip install docling</pre>
+      <p>A função <code>extract</code> identifica e processa o arquivo automaticamente.</p>
+      <pre>from docling import extract
+
+# Processe qualquer arquivo suportado: PDF, DOCX, PNG, etc.
+documento = extract("caminho/para/seu/arquivo.docx")
+
+# Acesse o texto e metadados
+print(documento['text'])
+print(documento['metadata'])</pre>
+    </div>
+
+    <div class="cta-container">
+        <a class="cta" href="https://pypi.org/project/docling/" target="_blank">Comece a Usar</a>
+    </div>
+  </div>
+</body>
+</html>
